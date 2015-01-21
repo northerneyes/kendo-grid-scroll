@@ -1,0 +1,32 @@
+{
+  "name": "kendo-grid-scroll",
+  "version": "0.0.1",
+  "description": "Program grid scroll with selection for kendo-ui library. Support virtual mode for grid automatically.",
+  "main": "KendoGridScroll.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/northerneyes/kendo-grid-scroll"
+  },
+  "keywords": [
+    "kendo",
+    "kendo-ui",
+    "grid",
+    "scroll",
+    "program",
+    "virtual",
+    "kendo grid",
+    "kendo grid scroll"
+  ],
+  "author": "George Bukhanov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/northerneyes/kendo-grid-scroll/issues"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
