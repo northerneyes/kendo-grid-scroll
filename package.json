@@ -1,7 +1,7 @@
 {
   "name": "kendo-grid-scroll",
   "version": "0.0.1",
-  "description": "Program grid scroll with selection for kendo-ui library. Support virtual mode for grid automatically.",
+  "description": "Program grid scroll for kendo-ui library. Support virtual mode for grid.",
   "main": "KendoGridScroll.js",
   "scripts": {
     "test": ""
@@ -15,10 +15,15 @@
     "kendo-ui",
     "grid",
     "scroll",
+    "scrollTo",
     "program",
     "virtual",
+    "kendoGrid",
+    "kendoTreeList",
     "kendo grid",
-    "kendo grid scroll"
+    "kendo grid scroll",
+    "kendo grid scrollTo",
+    "kendo treeList scroll"
   ],
   "author": "George Bukhanov",
   "license": "MIT",
