@@ -8,8 +8,6 @@
 (function(root, factory) {
 	if (typeof define === 'function' && define.amd) {
 		define(['kendo', 'jquery', 'exports'], function(kendo, $, exports) {
-			// Export global even in AMD case in case this script is loaded with
-			// others that may still expect a global Backbone.
 			root.KendoGridScroll = factory(root, exports, kendo, $);
 		});
 
@@ -26,10 +24,6 @@
 }(this, function(root, KendoGridScroll, kendo, $) {
 
 	KendoGridScroll.version = '0.0.3';
-	// var $grid;
-	// var gridContent;
-	// var $wrapper;
-	// var callback;
 
 	KendoGridScroll.Model = function($grid, callback) {
 		this.grid = $grid.data('kendoGrid') || $grid.data('kendoTreeList');
@@ -53,7 +47,6 @@
 		this.index = index;
 		var $visibleRows = this.gridContent.find(">tr:not(.k-grouping-row)");
 		//get first row height
-		// var height = $visibleRows.eq(1).height();
 		//little hack to calc the average of all visible rows
 		var height = 0;
 		$visibleRows.map(function(i, item) {
