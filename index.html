@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>html { font-size: 12px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <title></title>
+    <link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.common.min.css" />
+    <link href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.common-material.min.css" rel="stylesheet">
+    <link href="http://cdn.kendostatic.com/2014.3.1316/styles/kendo.material.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./test/style.css">
+
+    <script src="http://cdn.kendostatic.com/2014.3.1316/js/jquery.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2014.3.1316/js/kendo.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script src="./KendoGridScroll.js"></script>
+    <script src="./test/people.js"></script>
+    <script src="./test/index.js"></script>
+
+    <style type="text/css">
+     .configuration .k-textbox
+                {
+                    width: 23px;
+                }
+    </style>
+</head>
+<body>
+<div id="example">
+     <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">KendoGridScroll</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="https://github.com/northerneyes/kendo-grid-scroll">Github project</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container" style="padding-top: 50px">
+        <section>
+            <h1>A program grid scroll for kendo-ui library. Support local and remote datasource, virtual mode for grid.</h1>
+        </section>
+        <section>
+           <div class="box">
+                <div class="box-col">
+                <h4>Selection</h4>
+                <ul class="options">
+                    <li>
+                        <input type="text" value="0" id="selectRow" class="k-textbox"/>
+                        <button class="selectRow k-button">Select row</button>
+                    </li>
+                </ul>
+                </div>
+            
+                <div class="box-col">
+                <h4>DataSource</h4>
+                <ul class="options">
+                    <li>
+                        <button id="localDataSource" class=" k-button k-primary source">Local</button>
+                        <button id="remoteDataSource" class=" k-button source" >Remote</button>
+                    </li>
+                </ul>
+               </div>
+              </div>    
+                
+        </section>
+        <section>
+            <div  id="grid" style="height: 850px"></div>
+        </section>  
+    </div>
+</div>
+</body>
+</html>
