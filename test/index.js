@@ -1,6 +1,7 @@
 $(document).ready(function() {
     $grid = $('#grid');
-
+   
+      var kendoGridScroll;
     var createLocalGrid = function() {
         generatePeople(830, function(data) {
             var initStart;
@@ -46,8 +47,13 @@ $(document).ready(function() {
                 });
 
                 initEnd = new Date();
+                kendoGridScroll = new KendoGridScroll.Model($("#grid"), function(grid, row) {
+                    grid.select(row);
+                });
             });
         });
+
+
     };
     createLocalGrid();
     var createRemoteGrid = function() {
@@ -78,7 +84,7 @@ $(document).ready(function() {
             }, {
                 field: "ShipName",
                 title: "Ship Name",
-                width: 120
+                width: 190
             }, {
                 field: "ShipAddress",
                 title: "Ship Address"
@@ -92,24 +98,23 @@ $(document).ready(function() {
                 width: 130
             }]
         });
+        kendoGridScroll = new KendoGridScroll.Model($("#grid"), function(grid, row) {
+            grid.select(row);
+        });
     };
 
-
-
     var selectRow = function(e) {
-        KendoGridScroll.scrollTo($("#grid"), $("#selectRow").val(), function(grid, row) {
-            grid.select(row);
-        }, 90);
+        kendoGridScroll.scrollTo($("#selectRow").val());
     };
 
     var changeDataSource = function(e) {
-
+        kendoGridScroll.destroy();
         $('.source').removeClass('k-primary');
         $(this).addClass('k-primary');
         $grid.empty();
-        if($(this).attr('id') === "localDataSource"){
+        if ($(this).attr('id') === "localDataSource") {
             createLocalGrid();
-        } else{
+        } else {
             createRemoteGrid();
         }
     };

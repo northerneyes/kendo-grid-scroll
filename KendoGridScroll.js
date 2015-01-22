@@ -26,48 +26,67 @@
 }(this, function(root, KendoGridScroll, kendo, $) {
 
 	KendoGridScroll.version = '0.0.1';
+	// var $grid;
+	// var gridContent;
+	// var $wrapper;
+	// var callback;
 
-	KendoGridScroll.scrollTo = function($grid, index, callback, timeout) {
-		var grid = $grid.data('kendoGrid') || $grid.data('kendoTreeList');
-		if (!grid) {
+	KendoGridScroll.Model = function($grid, callback) {
+		this.grid = $grid.data('kendoGrid') || $grid.data('kendoTreeList');
+		if (!this.grid) {
 			throw 'KendoGridScroll support only kendoGrid or kendoTreeList';
 		}
+		this.callback = callback;
+		this.gridContent = (this.grid.tbody || this.grid.content);
+		this.$wrapper = this.grid.options.scrollable.virtual ?
+			this.grid.wrapper.find(".k-scrollbar-vertical") : this.grid.wrapper.find('.k-grid-content');
 
-		var gridContent = (grid.tbody || grid.content);
-		//find visible roes
-		var $visibleRows = gridContent.find(">tr:not(.k-grouping-row)");
+		var that = this;
+		this.grid.bind('dataBound', function(e) {
+			$nextRow = findRow(that.grid, that.gridContent, that.index, that.$wrapper);
+			if (that.callback) that.callback(that.grid, $nextRow);
+		});
+	};
+
+	KendoGridScroll.Model.prototype.scrollTo = function(index) {
+		this.index = index;
+		var $visibleRows = this.gridContent.find(">tr:not(.k-grouping-row)");
 		//get first row height
 		// var height = $visibleRows.eq(1).height();
 		//little hack to calc the average of all visible rows
-		var height = 0; $visibleRows.map(function(index, item){return $(item).height()}).each(function(index, h){height += h}); height = height/$visibleRows.length;
+		var height = 0;
+		$visibleRows.map(function(i, item) {
+			return $(item).height()
+		}).each(function(i, h) {
+			height += h
+		});
 
-		var firstVisibleIndex = grid.dataSource.indexOf(grid.dataItem($visibleRows.first()));
+		height = height / $visibleRows.length;
+
+		var firstVisibleIndex = this.grid.dataSource.indexOf(this.grid.dataItem($visibleRows.first()));
 		var relativeVisibleIndex = index - firstVisibleIndex;
 
 		var $row = $visibleRows.eq(relativeVisibleIndex);
-		var $wrapper = grid.options.scrollable.virtual ?
-			grid.wrapper.find(".k-scrollbar-vertical") : grid.wrapper.find('.k-grid-content');
+
 
 		var isNotExist = $row.length == 0;
-		var isUp = isNotExist ? true : $row.offset().top < $wrapper.offset().top;
-		var isDown = isNotExist ? true : ($row.offset().top + $row.height()) > $wrapper.offset().top + $wrapper.height();
+		var isUp = isNotExist ? true : $row.offset().top < this.$wrapper.offset().top;
+		var isDown = isNotExist ? true : ($row.offset().top + $row.height()) >
+			this.$wrapper.offset().top + this.$wrapper.height();
 
-		var $nextRow = findRow(grid, gridContent, index, $wrapper);
+		var $nextRow = findRow(this.grid, this.gridContent, this.index, this.$wrapper);
 
 		if (isNotExist || isUp || isDown) {
-			$wrapper.scrollTop((index - 1) * height);
+			this.$wrapper.scrollTop((index - 1) * height);
 		}
 
 		if ($nextRow.length > 0) {
-			callback(grid, $nextRow);
-		} else {
-			grid.one('dataBound', function(e) {
-				$nextRow = findRow(grid, gridContent, index, $wrapper);
-				if (callback) callback(grid, $nextRow);
-			});
+			this.callback(this.grid, $nextRow);
 		}
-
-
+	};
+	
+	KendoGridScroll.Model.prototype.destroy = function() {
+		this.grid.unbind('dataBound');
 	};
 
 	function findRow(grid, gridContent, index, $wrapper) {
@@ -81,7 +100,7 @@
 	function findRealIndex(grid, item) {
 		for (var i = 0; i < grid.dataSource._ranges.length; i++) {
 			var range = grid.dataSource._ranges[i];
-			var realIndex =range.data.indexOf(item);
+			var realIndex = range.data.indexOf(item);
 			if (realIndex >= 0) {
 				return realIndex + range.start;
 			}
