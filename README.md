@@ -1,6 +1,6 @@
 kendo-grid-scroll
 ===============
-Program grid scroll with selection for kendo-ui library. Support virtual mode for grid automatically..
+A program grid scroll for kendo-ui library. Support local and remote datasource, virtual mode for grid.
 
 ## [Demo](http://northerneyes.github.io/kendo-grid-scroll/)
 A demo is available on the Github Pages webpage for kendo-grid-scroll [here](http://northerneyes.github.io/kendo-grid-scroll/).
