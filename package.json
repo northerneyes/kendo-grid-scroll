@@ -1,6 +1,6 @@
 {
   "name": "kendo-grid-scroll",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Program grid scroll for kendo-ui library. Support virtual mode for grid.",
   "main": "KendoGridScroll.js",
   "scripts": {

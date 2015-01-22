@@ -25,7 +25,7 @@
 	}
 }(this, function(root, KendoGridScroll, kendo, $) {
 
-	KendoGridScroll.version = '0.0.1';
+	KendoGridScroll.version = '0.0.3';
 	// var $grid;
 	// var gridContent;
 	// var $wrapper;
@@ -42,6 +42,7 @@
 			this.grid.wrapper.find(".k-scrollbar-vertical") : this.grid.wrapper.find('.k-grid-content');
 
 		var that = this;
+		//we don't lose selected row
 		this.grid.bind('dataBound', function(e) {
 			$nextRow = findRow(that.grid, that.gridContent, that.index, that.$wrapper);
 			if (that.callback) that.callback(that.grid, $nextRow);
@@ -84,7 +85,7 @@
 			this.callback(this.grid, $nextRow);
 		}
 	};
-	
+
 	KendoGridScroll.Model.prototype.destroy = function() {
 		this.grid.unbind('dataBound');
 	};
@@ -93,7 +94,10 @@
 		var $newVisibleRows = gridContent.find(">tr:not(.k-grouping-row)");
 		var item = grid.dataItem($newVisibleRows.first());
 		var realIndex = findRealIndex(grid, item);
-		$row = gridContent.find(">tr:not(.k-grouping-row)").eq(index - realIndex);
+		if(index - realIndex < 0)
+			grid.clearSelection()
+		else
+			$row = gridContent.find(">tr:not(.k-grouping-row)").eq(index - realIndex);
 		return $row;
 	}
 
